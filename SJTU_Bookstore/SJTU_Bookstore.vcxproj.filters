@@ -44,7 +44,25 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test.cpp">
+    <ClCompile Include="index.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="user.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="book.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="finance.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="bookstore.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="tool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

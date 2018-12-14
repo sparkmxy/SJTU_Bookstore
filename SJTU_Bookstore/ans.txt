@@ -1,0 +1,20 @@
+root 7> Invalid: Wrong command.
+root 7> Invalid: adduesr: User existed.
+root 7> Invalid: adduesr: Not allowed.
+root 7> Invalid: adduesr: User existed.
+root 7> Invalid: del:User doesn't exist.
+root 0> Invalid: Wrong command.
+root 0> Invalid: adduesr: Not allowed
+root 0> Invalid: register: Invalid command
+root 0> Invalid: Havn't logged in yet.
+root 0> Invalid: del:Not allowed
+root 0> Invalid: pswd: not allowed
+root 0> Invalid: Wrong command.
+root 0> Invalid: login: Wrong password
+worker0 3> Invalid: pswd: User doesn't exist.
+worker0 3> Invalid: register: Invalid command
+worker0 3> Invalid: del:Not allowed
+root 7> Invalid: del:User doesn't exist.
+user0 1> Invalid: pswd: User doesn't exist.
+user0 1> Invalid: del:Not allowed
+user5 0> Invalid: Wrong command.

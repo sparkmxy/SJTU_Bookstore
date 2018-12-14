@@ -4,6 +4,9 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include "tool.h"
+
+using std::fstream;
 
 template<class T>
 class dataFile {
@@ -15,26 +18,28 @@ class dataFile {
 public:
 	//构造函数：参数为文件名，如果不存在就创建
 	dataFile(std::string name) :sizeofT(sizeof(T)),fileName(name) {
-		in.open(fileName,ios::binary);
+		in.open(fileName,fstream::binary);
 		if (!in) {
-			out.open(fileName,fstream::out|ios::binary);
+			out.open(fileName,fstream::out| fstream::binary);
 			_size = 0;
 			out.seekp(0);
 			out.write(reinterpret_cast<const char *>(&_size), sizeof(int));
 			out.flush();
-			in.open(fileName,ios::binary);
+			in.open(fileName, fstream::binary);
 		}
 		else {
-			out.open(fileName,fstream::in|fstream::out|ios::binary);
+			out.open(fileName,fstream::in|fstream::out| fstream::binary);
 			in.seekg(0);
 			in.read(reinterpret_cast<char *>(&_size), sizeof(int));
-			std ::cout << "File "<<fileName<<"exist,size = " << _size << '\n';
+			//std ::cout << "File "<<fileName<<"exist,size = " << _size << '\n';
 		}
 	}
 	dataFile() = delete;
 
 	// 析构函数：关闭文件
 	~dataFile() {
+		out.seekp(0);
+		out.write(reinterpret_cast<const char *>(&_size), sizeof(int));
 		in.close();
 		out.close();
 	}
@@ -47,9 +52,13 @@ public:
 	// push in a new record
 	void push(const T& ele);
 
+	void pop();
+
 	int size() { return _size; }
 
 	void loadAll(T *ptr);
+
+	void load(int l, int r, T *ptr);
 
 	void upload(int __size, T *ptr);
 };
@@ -72,8 +81,6 @@ void dataFile<T>::replace(const T& now, int i) {
 template<class T>
 void dataFile<T>::push(const T& ele) {
 	_size++;
-	out.seekp(0);
-	out.write(reinterpret_cast<const char *>(&_size), sizeof(int));
 	out.seekp((_size - 1)*sizeofT + sizeof(int));
 	out.write(reinterpret_cast<const char *>(&ele), sizeofT);
 	out.flush();
@@ -86,6 +93,12 @@ void dataFile<T>::loadAll(T* ptr) {
 }
 
 template<class T>
+void dataFile<T>::load(int l, int r, T *ptr) {
+	in.seekg(sizeof(int) + (l - 1)*sizeofT);
+	in.read(reinterpret_cast<char *>(ptr), (r - l + 1) * sizeof(T));
+}
+
+template<class T>
 void dataFile<T>::upload(int __size,T* ptr) {
 	out.seekp(0);
 	_size = __size;
@@ -93,4 +106,9 @@ void dataFile<T>::upload(int __size,T* ptr) {
 	out.seekp(sizeof(int));
 	out.write(reinterpret_cast<const char *>(ptr), _size*sizeofT);
 	out.flush();
+}
+
+template<class T>
+void dataFile<T>::pop() {
+	_size--;
 }

@@ -129,7 +129,13 @@
     <ClInclude Include="user.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="book.cpp" />
+    <ClCompile Include="bookstore.cpp" />
+    <ClCompile Include="finance.cpp" />
+    <ClCompile Include="index.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="tool.cpp" />
+    <ClCompile Include="user.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

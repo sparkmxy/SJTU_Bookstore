@@ -1,7 +1,6 @@
 #pragma once
 
 #include "dataFile.h"
-#include "tool.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -28,11 +27,6 @@ class linkList {
 	int blockNo;
 	int head;
 
-private:
-	void merge(int i);
-
-	void split(int i);
-
 public:
 	//Constructor
 	linkList(std::string fileName) :data(fileName), blocks(fileName + "_block") {
@@ -41,7 +35,7 @@ public:
 			blocks.loadAll(&info[1]);
 			head = info[blockNo].next;
 			blockNo--;
-			std::cout<<"reload: head = "<<head<<'\n';
+			//std::cout<<"reload: head = "<<head<<'\n';
 		}
 		else  head = -1;  
 	}
@@ -53,6 +47,9 @@ public:
 
 	// Add a new element with key = <key>
 	void push(const elementT& ele);
+
+	//
+	void modify(const keyT& key,const elementT& ele);
 
 	std::vector<elementT> lookup(const keyT &key);
 };
@@ -78,8 +75,10 @@ std::vector<elementT> linkList<elementT>::lookup(const keyT &key) {
 	block<elementT> cur = data.get(blockid);
 	std::vector<elementT> ret;
 	for (int i = 0; i < cur.cnt; i++)
-		if (cur.del[i] != '#' &&key == cur.V[i].key)
+		if (cur.del[i] != 'x' &&key == cur.V[i].key) {
 			ret.push_back(cur.V[i]);
+			break;
+		}
 	return ret;
 }
 
@@ -105,10 +104,11 @@ void linkList<elementT>::push(const elementT& ele) {
 	//std::cout << "Block Found: " << cur << '\n';
 	block<elementT> B = data.get(cur);
 	B.V[B.cnt++] = ele;
+	B.del[B.cnt] = '.';
 	if (B.cnt == blockSize) { // split
 		block<elementT> newB,B1;
 		for (int i = 0; i < B.cnt; i++)
-			if (B.del[i] != '#')B1.V[B1.cnt++] = B.V[i];
+			if (B.del[i] != 'x')B1.V[B1.cnt++] = B.V[i];
 		std::sort(B1.V, B1.V + B1.cnt);
 		for (int i = B1.cnt >> 1; i < B1.cnt; i++) newB.V[newB.cnt++] = B.V[i];
 		B1.cnt >>= 1;
@@ -141,22 +141,42 @@ void linkList<elementT>::erase(const keyT &key) {
 	if (cur == -1)  error("erase  error");
 	block<elementT> B = data.get(cur);
 	for(int i=0;i<B.cnt;i++)
-		if (B.del[i]!='#' && key == B.V[i].key) {
-			B.del[i] = '#';
-			//std::cout << "Succeed!\n";
-			return;
+		if (B.del[i]!='x' && key == B.V[i].key) {
+			B.del[i] = 'x';
+	//		std::cout << "Succeed!\n";
+			data.replace(B, cur);
+			break;
 		}
-	error("erase error");
-
+	
 	// merge
 	if (B.next != -1) {
 		block<elementT> C = data.get(B.next);
 		if (B.cnt + C.cnt < blockSize) {
 			for (int i = 0; i < C.cnt; i++)
-				if (C.del[i] != '#')
+				if (C.del[i] != 'x')
 					B.V[++B.cnt] = C.V[i];
 		}
 		info[cur].last = info[B.next].last;
 		info[cur].next = B.next = C.next;
 	}
+	error("erase error");
+}
+
+template<class elementT>
+void linkList<elementT>::modify(const keyT &key, const elementT &ele) {
+	int blockid = head;
+	while (blockid != -1) {
+		//	std::cout << "cmp: " << info[blockid].first << ' ' << info[blockid].last << '\n';
+		if (key >= info[blockid].first && key <= info[blockid].last)
+			break;
+		blockid = info[blockid].next;
+	}
+
+	block<elementT> cur = data.get(blockid);
+	for (int i = 0; i < cur.cnt; i++)
+		if (cur.del[i] != 'x' &&key == cur.V[i].key) {
+			cur.V[i] = ele;
+			data.replace(cur, blockid);
+			break;
+		}
 }
