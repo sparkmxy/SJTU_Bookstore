@@ -1,4 +1,4 @@
-#include"book.h"
+ï»¿#include"book.h"
 
 bool operator < (const bookT &b1, const bookT &b2) {
 	return strcmp(b1.isbn.key,b2.isbn.key)<0;
@@ -10,7 +10,7 @@ void bookT::display() {
 		std::cout << keys[i];
 		if (i != size - 1) std::cout << '|';
 	}
-	std::cout << '\t' << price << '\t' << quantity << "±¾\n";
+	std::cout << '\t' << price << '\t' << quantity << "æœ¬\n";
 }
 
 void bookT::renew(keyT newkeys) {
@@ -29,7 +29,7 @@ int ibooks::find(keyT isbn) {
 	return I.find(isbn);
 }
 
-//·µ»Ø±àºÅÎªnoµÄÍ¼Êé
+//è¿”å›žç¼–å·ä¸ºnoçš„å›¾ä¹¦
 bookT ibooks::get(int no) {
 	return books.get(no);
 }
