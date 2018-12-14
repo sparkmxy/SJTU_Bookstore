@@ -1,4 +1,4 @@
-PROGRAM = bookstore
+PROGRAM = code
 
 CXX = g++
 CXXFLAGS = -g -std=c++17
