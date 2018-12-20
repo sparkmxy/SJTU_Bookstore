@@ -4,6 +4,7 @@
 #include "bookstore.h"
 #include "book.h"
 #include <iomanip>
+#include <cstdlib> 
 using namespace std;
 
 bookstore B("sjtu");
@@ -12,31 +13,41 @@ void run(const string &s);
 
 ifstream in("command.txt");
 
+#define plus_1_s NULL
 
 int main() {
 	//freopen("ans.txt", "w", stdout);
+	srand(19260817^time(plus_1_s));
 	cout << fixed << setprecision(2);
 	string s;
-	if (in) B.root();
+	bool testFlag = false;
+	if (in) {
+		B.root();
+		testFlag = true;
+	}
 	while (true) {
+		if (!testFlag) B.who();
 		if (in && !in.eof()) getline(in, s);
 		else getline(cin,s);
 		try{
 			run(s);
 		}
 		catch (const errorT& e){
-			//B.report();
-			cout << "Invalid" << endl;
-			//cout << "Invalid: "<<e.msg<<endl;
+			if(testFlag)
+				cout << "Invalid" << endl;
+			else {
+				B.who();
+				cout << "Invalid! " << e.msg << endl;
+			}
 		}
 	}
 	return 0;
 }
 
 
-const int CMDNO = 13;
+const int CMDNO = 17;
 const string CMD[CMDNO] = { "load","exit","su","logout","useradd","register","delete","passwd",
-	"select","modify","show","buy","import"
+	"select","modify","show","buy","import","log","report","help","clean"
 };
 
 void run(const string &s) {
@@ -94,8 +105,21 @@ void run(const string &s) {
 	case 12:
 		B._import(ss);
 		break;
-	default:
-		error("Wrong command.");
+	case 13:
+		B.showLog(ss);
 		break;
+	case 14:
+		B.report(ss);
+		break;
+	case 15:
+		B.help();
+		break;
+	case 16:
+		B.clean();
+		break;
+	default:
+		error("Wrong command.You can try [help].");
 	}
+	if (id == 4 || id == 5 || id == 6 || id == 8 || id == 9 || id == 11 || id == 12)
+		B.record(s);
 }

@@ -93,3 +93,9 @@ public:
 };
 
 bool isempty(std::stringstream &ss);
+
+enum callType{
+	YES,NO
+};
+
+callType getCallFromUser();

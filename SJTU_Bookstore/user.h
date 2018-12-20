@@ -55,4 +55,7 @@ public:
 	
 	//登录，返回是否成功
 	std::pair<bool,userT> login(keyT _id, keyT _pawd);
+
+	//生成一张赏心悦目的员工工作情况表
+	void report(std::ostream &os);
 };

@@ -122,6 +122,7 @@
     <ClInclude Include="bookstore.h" />
     <ClInclude Include="dataFile.h" />
     <ClInclude Include="finance.h" />
+    <ClInclude Include="help.h" />
     <ClInclude Include="index.h" />
     <ClInclude Include="linkList.h" />
     <ClInclude Include="log.h" />
@@ -132,7 +133,9 @@
     <ClCompile Include="book.cpp" />
     <ClCompile Include="bookstore.cpp" />
     <ClCompile Include="finance.cpp" />
+    <ClCompile Include="help.cpp" />
     <ClCompile Include="index.cpp" />
+    <ClCompile Include="log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="tool.cpp" />
     <ClCompile Include="user.cpp" />

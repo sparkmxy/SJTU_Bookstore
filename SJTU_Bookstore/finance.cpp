@@ -1,6 +1,6 @@
 #include "finance.h"
 
-accountBook::accountBook(std::string name) :data(name + "_fnc") {
+accountBook::accountBook(std::string name) :data(name + "_fnc"),sales(name+"_sale"){
 	if (data.size()) {
 		trade temp = data.get(data.size());
 		data.pop();
@@ -42,5 +42,36 @@ void accountBook::show(int time) {
 	delete [] p;
 }
 
-//打印一张财务报表
-void report();
+void accountBook::buy(int bookno, int quantity) {
+	int cur = sales.get(bookno);
+	cur += quantity;
+	sales.replace(cur, bookno);
+}
+
+void accountBook::report(std::ostream &os) {
+	os << "Total income: " << totalIncome << '\n';
+	os << "Total expenditure: " << totalCost << '\n';
+	os << "Net Income: " << totalIncome - totalCost << '\n';
+}
+
+std::vector< std::pair<int,int> > accountBook::bestSeller() {
+	int size = sales.size();
+	int *p = new int[size];
+	int *q = new int[size];
+	for (int i = 0; i < size; i++) q[i] = i;
+	std::sort(q, q + size, [p](int x, int y)->bool {return p[x] > p[y]; });
+	std::vector< std::pair<int, int> > ret;
+	for (int i = 0; i < size && i < 10; i++) 
+		ret.push_back(std::make_pair(q[i],p[q[i]]));
+	return ret;
+}
+
+void accountBook::showAll(std::ostream &os) {
+	int size = data.size();
+	trade *p = new trade[size];
+	data.loadAll(p);
+	for (int i = 0; i < size; i++) {
+		os << "record# " << i + 1 << ": " << p[i] << '\n';
+	}
+	delete[] p;
+}

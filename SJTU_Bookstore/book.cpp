@@ -13,6 +13,12 @@ void bookT::display() {
 	std::cout << '\t' << price << '\t' << quantity << "本\n";
 }
 
+void bookT::display2(int sold, std::ostream &os) {
+	os << isbn << '\t' << name << '\t' << author << '\t';
+	os << '\t' << price << "\t 库存" << quantity << "本\n";
+	os << "总共卖出： " << sold << " 本\n";
+}
+
 void bookT::renew(keyT newkeys) {
 	int l = 0,len = newkeys.length();
 	size = 0;

@@ -3,6 +3,10 @@
 #include "user.h"
 #include "book.h"
 #include "finance.h"
+#include "log.h"
+#include "help.h"
+#include <windows.h>
+#include <ctime>
 #include <string>
 #include <sstream>
 
@@ -10,15 +14,14 @@ class bookstore {
 	userList user;
 	ibooks books;
 	accountBook account;
+	Log _record;
 	int bookno;
 	userT curUser;
 	bool _isNew;
 
-	void init();
-
 public:
 	bookstore(std::string name) 
-		:user(name), books(name), account(name),bookno(-1){
+		:user(name), books(name), account(name),bookno(-1),_record(name){
 		curUser.level = 0;
 		if (user.isNew()) init();
 	}
@@ -49,10 +52,23 @@ public:
 
 	void root();
 
-	void report() {
-		std::cout << curUser.id << ' ' << curUser.level << "> ";
-	}
-	void curbk() {
-		std::cout << bookno << '\n';
-	}
+	void who();
+
+	void report(std::stringstream &ss);
+
+	void showLog(std::stringstream &ss);
+
+	void help();
+
+	void record(const std::string &s);
+
+	void clean();
+private:
+	void init();
+
+	void reportFinance();
+
+	void reportEmployee();
+
+	void reportMyself();
 };

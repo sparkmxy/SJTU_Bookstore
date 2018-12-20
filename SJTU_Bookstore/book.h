@@ -21,6 +21,7 @@ public:
 		isbn(_isbn),size(0),quantity(0),price(0),
 		author(""),name(""),del('.'){}
 	void display();
+	void display2(int sold, std::ostream& os);
 	void renew(keyT newkeys);
 	double _price() { return price; }
 };

@@ -30,3 +30,13 @@ bool isempty(std::stringstream &ss) {
 	std::string a;
 	ss >> a; return a == "";
 }
+
+callType getCallFromUser() {
+	while (1) {
+		std::cout << "Please Input Y for yes , N for no.\n";
+		std:: string ch;
+		std::getline(std::cin,ch);
+		if (ch == "Y" || ch == "y" || ch == "YES" || ch == "yes") return YES;
+		else if (ch == "N" || ch == "n" || ch == "NO" || ch == "no") return NO;
+	}
+}
