@@ -9,8 +9,8 @@ void Log::showAll(std::ostream &os) {
 	delete[] p;
 }
 
-void Log::add(keyT _userid, const std::string &s) {
-	data.push(recT(_userid,s));
+void Log::add(keyT _userid,int level,const std::string &s) {
+	data.push(recT(_userid,level,s));
 	R.add(_userid, data.size());
 }
 
@@ -29,14 +29,16 @@ void Log::employee(std::ostream &os) {
 	data.loadAll(p);
 	std::stable_sort(p, p + size);
 	keyT cur;
+	bool isEmployee = false;
 	for (int i = 0; i < size; i++) {
 		if (cur != p[i].userid) {
 			cur = p[i].userid;
+			isEmployee = p[i].level == 3;
 			cnt = 0;
-			os << " User: " << cur << '\n';
+			if(isEmployee)os << " Employee: " << cur << '\n';
 		}
 		cnt++;
-		os << "record# "<<cnt<<": "<<p[i].what << '\n';
+		if(isEmployee)os << "record# "<<cnt<<": "<<p[i].what << '\n';
 	}
 	delete[] p;
 }

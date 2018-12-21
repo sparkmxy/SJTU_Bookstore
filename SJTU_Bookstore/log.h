@@ -9,7 +9,8 @@ class Log {
 	struct recT{
 		keyT userid;
 		char what[MAXSIZE];
-		recT(keyT _userid, std::string _what) :userid(_userid) {
+		int level;
+		recT(keyT _userid,int _level,std::string _what) :userid(_userid),level(_level){
 			std::strcpy(what,_what.c_str());
 		}
 		recT() = default;
@@ -31,7 +32,7 @@ public:
 
 	void showAll(std::ostream &os);
 
-	void add(keyT _userid, const std::string &s);
+	void add(keyT _userid,int level,const std::string &s);
 
 	void show(keyT userid, std::ostream &os);
 

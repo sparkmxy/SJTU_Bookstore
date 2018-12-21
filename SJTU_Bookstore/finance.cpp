@@ -58,11 +58,14 @@ std::vector< std::pair<int,int> > accountBook::bestSeller() {
 	int size = sales.size();
 	int *p = new int[size];
 	int *q = new int[size];
+	sales.loadAll(p);
 	for (int i = 0; i < size; i++) q[i] = i;
 	std::sort(q, q + size, [p](int x, int y)->bool {return p[x] > p[y]; });
 	std::vector< std::pair<int, int> > ret;
 	for (int i = 0; i < size && i < 10; i++) 
-		ret.push_back(std::make_pair(q[i],p[q[i]]));
+		ret.push_back(std::make_pair(q[i]+1,p[q[i]]));
+	delete[] p;
+	delete[] q;
 	return ret;
 }
 
@@ -74,4 +77,8 @@ void accountBook::showAll(std::ostream &os) {
 		os << "record# " << i + 1 << ": " << p[i] << '\n';
 	}
 	delete[] p;
+}
+
+void accountBook::addBook() {
+	sales.push(0);
 }

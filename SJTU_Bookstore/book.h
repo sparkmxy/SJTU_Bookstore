@@ -24,6 +24,7 @@ public:
 	void display2(int sold, std::ostream& os);
 	void renew(keyT newkeys);
 	double _price() { return price; }
+	bool exist() { return del != 'x'; }
 };
 
 enum infoType{

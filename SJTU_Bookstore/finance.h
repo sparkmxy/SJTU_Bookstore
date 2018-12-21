@@ -40,5 +40,7 @@ public:
 
 	void report(std::ostream& os);
 
+	void addBook();
+
 	void showAll(std::ostream& os);
 };

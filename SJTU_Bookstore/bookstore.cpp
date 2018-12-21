@@ -47,8 +47,10 @@ void bookstore::select(std::stringstream &ss) {
 	ss >> isbn;
 	if (!isempty(ss)) error("select: Invalid command.");
 	int id = books.find(isbn);
-	if (id == -1)
+	if (id == -1) {
 		bookno = books.add(isbn);
+		account.addBook();
+	}
 	else bookno = id;
 }
 
@@ -137,6 +139,7 @@ void bookstore::buy(std::stringstream &ss) {
 }
 
 void bookstore::login(std::stringstream &ss) {
+	if (curUser.level != 0) error("Already logged in.");
 	keyT id, pswd;
 	ss >> id >> pswd;
 	if (ss.fail() || !isempty(ss)) error("login: Invalid command.");
@@ -219,8 +222,10 @@ void bookstore::reportFinance() {
 	if (curUser.level < 7) error("report: Not allowed.");
 	auto V = account.bestSeller();
 	std::vector<bookT> U;
-	for (int i = 0; i < V.size(); i++)
-		U.push_back(books.get(V[i].first));
+	for (int i = 0; i < V.size(); i++) {
+		auto cur = books.get(V[i].first);
+		if(cur.exist())U.push_back(cur);
+	}
 	std::cout << "------------------------Finance Report-----------------------------\n";
 	account.report(std::cout);
 	std::cout << "Best Sellers:\n";
@@ -245,7 +250,7 @@ void bookstore::help() {
 }
 
 void bookstore::record(const std::string &s) {
-	_record.add(curUser.id,s);
+	_record.add(curUser.id,curUser.level,s);
 }
 
 void bookstore::showLog(std::stringstream &ss) {
