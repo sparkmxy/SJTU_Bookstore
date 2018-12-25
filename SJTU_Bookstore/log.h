@@ -30,11 +30,15 @@ class Log {
 public:
 	Log(std::string name) :data(name + "_log") ,R(name+"_log"){}
 
+	//向流<os> 中打印全部操作记录
 	void showAll(std::ostream &os);
 
+	//添加一条操作记录
 	void add(keyT _userid,int level,const std::string &s);
 
+	//向流<os> 中打印某个用户的操作记录
 	void show(keyT userid, std::ostream &os);
 
+	//向流 <os> 中打印每个员工的操作记录
 	void employee(std::ostream &os);
 };

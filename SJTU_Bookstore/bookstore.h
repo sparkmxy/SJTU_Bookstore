@@ -63,6 +63,7 @@ public:
 	void record(const std::string &s);
 
 	void clean();
+
 private:
 	void init();
 

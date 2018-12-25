@@ -53,11 +53,15 @@ public:
 	// 已选定修改某本书的某些信息，保证信息是合法的
 	void modify(int no, infoType type, keyT info);
 
+	// 修改某本书的价格
 	void modifyP(int no, double pri);
 
+	// 将某本书的数量+delta，如果数量不足抛出错误
 	void modifyQ(int no, int delta);
 
+	// 打印所有的书目信息
 	void showAll();
 
+	// 按<infoType>类的关键字查找
 	std::vector<int> search(infoType type, keyT info);
 };
