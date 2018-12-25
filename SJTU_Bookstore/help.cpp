@@ -1,42 +1,43 @@
-#include "help.h"
+ï»¿#include "help.h"
 
 std::string cmd[7]{
-	"exit £ºÍË³ö³ÌĞò",
-	"su [user©\id] [passwd]:µÇÂ¼",
-	"logout £º·µ»Øµ½Î´µÇÂ¼×´Ì¬",
-	"passwd [user©\id] [old©\passwd(if not root)] [new©\passwd] £ºĞŞ¸ÄÃÜÂë",
-	"register[user©\id][passwd][name] £º×¢²á",
-	"show ©\ISBN = [ISBN] ©\name = [name] ©\author = [author] ©\keyword = [keyword]£º²éÕÒÍ¼Êé",
-	"buy[ISBN][quantity] #1£º¹ºÂòÍ¼Êé"
+	"exit ï¼šé€€å‡ºç¨‹åº",
+	"su [userâ€id] [passwd]:ç™»å½•",
+	"logout ï¼šè¿”å›åˆ°æœªç™»å½•çŠ¶æ€",
+	"passwd [userâ€id] [oldâ€passwd(if not root)] [newâ€passwd] ï¼šä¿®æ”¹å¯†ç ",
+	"register[userâ€id][passwd][name] ï¼šæ³¨å†Œ",
+	"show â€ISBN=[ISBN] â€name=[name] â€author=[author] â€keyword=[keyword]ï¼šæŸ¥æ‰¾å›¾ä¹¦",
+	"buy[ISBN][quantity] #1ï¼šè´­ä¹°å›¾ä¹¦"
 };
 
-std::string admin[5]{
-	"select[ISBN]£ºÑ¡¶¨",
-	"modify ©\ISBN = [ISBN] ©\name = [name] ©\author = [author] ©\keyword = [keyword] ©\price = [price]£ºĞŞ¸ÄÊé¼®ĞÅÏ¢"
-	"import[quantity][cost_price(in total)]£ºÂò½øÍ¼Êé",
-	"clean£ºÇåÀíÏµÍ³À¬»ø"
-	"report myself£ºÎÒµÄ²Ù×÷¼ÇÂ¼"
+std::string admin[6]{
+	"select[ISBN]ï¼šé€‰å®š",
+	"modify â€ISBN = [ISBN] â€name=[name] â€author=[author] â€keyword=[keyword] â€price=[price]ï¼šä¿®æ”¹ä¹¦ç±ä¿¡æ¯",
+	"import [quantity][cost_price(in total)]ï¼šä¹°è¿›å›¾ä¹¦",
+	"useradd [id] [password] [level] [name] : æ·»åŠ ç”¨æˆ·",
+	"report myselfï¼šæˆ‘çš„æ“ä½œè®°å½•",
+	"cleanï¼šæ¸…ç†ç³»ç»Ÿåƒåœ¾"
 };
 
 std::string boss[3]{
-	"report finance£º ²ÆÎñ±¨±í"
-	"report employee£ºÔ±¹¤¹¤×÷Çé¿ö"
-	"log£ºÏµÍ³ÈÕÖ¾"
+	"report financeï¼š è´¢åŠ¡æŠ¥è¡¨",
+	"report employeeï¼šå‘˜å·¥å·¥ä½œæƒ…å†µ",
+	"logï¼šç³»ç»Ÿæ—¥å¿—"
 };
 
 void instruction(int level) {
 	std::cout << "-------------------------Help-------------------------\n";
 	for (int i = 0; i < 7; i++)
-		std::cout << cmd[i] << '\n';
-	if (level == 3) {
-		std::cout << "¹ÜÀíÔ±ÃüÁî£º\n";
-		for (int i = 0; i < 5; i++)
-			std::cout << admin[i] << '\n';
+		std::cout << cmd[i] << std::endl;
+	if (level >= 3) {
+		std::cout << "ç®¡ç†å‘˜å‘½ä»¤:" << std::endl;
+		for (int i = 0; i < 6; i++)
+			std::cout << admin[i] << std::endl;
 	}
 	if (level == 7) {
-		std::cout << "ÀÏ°å£¬ÄãºÃ!\n";
+		std::cout << "è€æ¿ï¼Œä½ å¥½!\n";
 		for (int i = 0; i < 3; i++)
-			std::cout << boss[i] << '\n';
+			std::cout << boss[i] << std::endl;
 	}
 	std::cout << "--------------------------End-------------------------\n";
 }

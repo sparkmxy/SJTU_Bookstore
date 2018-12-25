@@ -54,6 +54,7 @@ void run(const string &s) {
 	stringstream ss(s);
 	string cmd;
 	ss >> cmd;
+	toLowerCase(cmd);
 	int id = 0;
 	string temp;
 	while (id < CMDNO && CMD[id] != cmd) id++;

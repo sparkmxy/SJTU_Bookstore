@@ -40,3 +40,10 @@ callType getCallFromUser() {
 		else if (ch == "N" || ch == "n" || ch == "NO" || ch == "no") return NO;
 	}
 }
+
+void toLowerCase(std::string &s) {
+	int l = s.length();
+	for (int i = 0; i < l; i++)
+		if (s[i] >= 'A' &&  s[i] <= 'Z')
+			s[i] = 'a' + (s[i] - 'A');
+}

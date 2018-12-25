@@ -87,7 +87,7 @@ std::vector<int> ibooks::search(infoType type, keyT info) {
 
 int ibooks::add(keyT isbn) {
 	//std::cout << "add: " << isbn << '\n';
-	if (!I.add(isbn, books.size())) error("book existed.");
+	if (!I.add(isbn, books.size()+1)) error("book existed.");
 	books.push(bookT(isbn));
 	return books.size();
 }

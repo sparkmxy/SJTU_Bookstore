@@ -83,6 +83,7 @@ void bookstore::show(std::stringstream &ss) {
 	if (!n) {
 		//std::cout << "ShowAll!\n";
 		books.showAll();
+		return;
 	}
 	std::vector<int> V[5];
 	std::vector<bookT> ans;
@@ -204,8 +205,8 @@ void bookstore::who() {
 	if (curUser.level == 0) {
 		std::cout << "visitor >";
 	}
-	else 
-		std::cout << curUser.id << " >";
+	else
+		std::cout << curUser.id << "(" << curUser.name << ") >";
 }
 
 void bookstore::report(std::stringstream &ss) {
@@ -250,6 +251,7 @@ void bookstore::help() {
 }
 
 void bookstore::record(const std::string &s) {
+	if (curUser.level == 0)return;
 	_record.add(curUser.id,curUser.level,s);
 }
 
@@ -258,7 +260,7 @@ void bookstore::showLog(std::stringstream &ss) {
 	std::cout << "------------------------Log-----------------------------\n";
 	std::cout << "Operations:\n";
 	_record.showAll(std::cout);
-	std::cout << "------------------------------------------------------------\n";
+	std::cout << "------------------------------------------------\n";
 	std::cout << "Finance Details:\n";
 	account.showAll(std::cout);
 	std::cout << "------------------------End-----------------------------\n";
@@ -269,7 +271,7 @@ void bookstore::showLog(std::stringstream &ss) {
 	out << "------------------------Log-----------------------------\n";
 	out << "Operations:\n";
 	_record.showAll(out);
-	out << "------------------------------------------------------------\n";
+	out << "------------------------------------------------\n";
 	out << "Finance Details:\n";
 	account.showAll(out);
 	out << "------------------------End-----------------------------\n";

@@ -23,8 +23,10 @@ struct block {
 };
 
 /*这个类是一个定长的字符串*/
+
 class keyT{ 
 	static const int SIZE = 50;
+
 public:
 	char key[SIZE];
 	keyT(std::string _key) {
@@ -36,7 +38,6 @@ public:
 	keyT(const keyT &obj) {
 		strcpy(key, obj.key);
 	}
-
 	keyT() = default;
 
 	keyT& operator=(const keyT &right) {
@@ -99,3 +100,5 @@ enum callType{
 };
 
 callType getCallFromUser();
+
+void toLowerCase(std::string &s);

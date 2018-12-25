@@ -5,6 +5,5 @@
 
 void instruction(int level);
 
-void clean();
 
 
